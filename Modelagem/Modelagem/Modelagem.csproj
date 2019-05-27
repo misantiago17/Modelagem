@@ -42,9 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categoria.cs" />
     <Compile Include="Controladores\Controlador1.cs" />
+    <Compile Include="Controladores\Controlador2.cs" />
+    <Compile Include="Estante.cs" />
+    <Compile Include="ItemMercadoriaSeparacao.cs" />
+    <Compile Include="ItemPedidoLoja.cs" />
+    <Compile Include="ItemTransferidoLoja.cs" />
+    <Compile Include="Loja.cs" />
+    <Compile Include="Mercadoria.cs" />
+    <Compile Include="PedidoLoja.cs" />
+    <Compile Include="Posicao.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetiradaDiariaPosicao.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
