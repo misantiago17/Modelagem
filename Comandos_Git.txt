@@ -1,0 +1,15 @@
+Comandos git:
+
+git add .
+esse comando é usado para adicionar TODAS as mudanças feitas no seu repossitorio
+
+git commit -m "mensagem"
+esse comando serve para "Commitar" (no shit) as mudanças adicionadas no comando add.
+ele sempre precisa ter essa forma. -m significa que vc vai atribuir uma mendagem a esse commit e o que esta escrito entre os "" é a tal mensagem.
+
+git push
+esse comando sobe todos os arquivos.
+
+git pull 
+atualiza o seu repositorio local com o repositorio que tem no git
+
