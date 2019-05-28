@@ -1,0 +1,7 @@
+U:\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.exe.config
+U:\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.exe
+U:\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.pdb
+U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csprojAssemblyReference.cache
+U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CoreCompileInputs.cache
+U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.exe
+U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.pdb

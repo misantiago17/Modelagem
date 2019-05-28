@@ -9,6 +9,8 @@ namespace Modelagem
     class Mercadoria
     {
         int codigoVenda;
+
+        // Códgi ode armazenamento é apenas para a matriz
         int codigoArmazenamento;
 
         bool avaliaCodigoMercValida(int cod)
