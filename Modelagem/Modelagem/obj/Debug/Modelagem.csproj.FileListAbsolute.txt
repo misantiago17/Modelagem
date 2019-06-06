@@ -5,3 +5,6 @@ U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csprojAssemblyReference.cac
 U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CoreCompileInputs.cache
 U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.exe
 U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.pdb
+U:\Modelagem\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.dll
+U:\Modelagem\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.xml
+U:\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CopyComplete

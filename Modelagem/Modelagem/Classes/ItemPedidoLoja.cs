@@ -9,6 +9,7 @@ namespace Modelagem
     class ItemPedidoLoja
     {
         int quantidade;
+        Mercadoria mercadoria;
 
         void adicionaItemLista(int cod)
         {
