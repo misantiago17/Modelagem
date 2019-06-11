@@ -6,29 +6,38 @@ using System.Threading.Tasks;
 
 namespace Modelagem
 {
-    class Mercadoria
+    class Mercadoria // -------------------- TO DO
     {
         int codigoVenda;
 
-        // Códgi ode armazenamento é apenas para a matriz
+        // Código onde armazenamento é apenas para a matriz
         int codigoArmazenamento;
 
-        bool avaliaCodigoMercValida(int cod)
+        public Mercadoria retornaMercadoria(int cod)
+        {
+            // Verificar em mercadoria se o código de venda do item existe mesmo
+            avaliaCodigoMercValida(cod);
+            if (avaliaCodigoMercValida(cod)) {
+                codigoVenda = cod;
+                codigoArmazenamento = 0; // TO DO
+
+                return this;
+            } else {
+                Console.WriteLine("Mercadoria Inválida.");
+            }
+            return null;
+        }
+        private bool avaliaCodigoMercValida(int cod)    // ------------ TO DO - perguntar para ele
         {
             return true;
         }
 
-        Mercadoria retornaMercadoria(int cod)
-        {
-            return this;
-        }
-
-        int retornaPosicao(int cod)
+        private int retornaPosicao(int cod)
         {
             return 0;
         }
 
-        static bool verificaExistenciaMerc(int cod)
+        private static bool verificaExistenciaMerc(int cod)
         {
             return true;
         }

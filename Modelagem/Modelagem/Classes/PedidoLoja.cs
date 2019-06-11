@@ -8,16 +8,27 @@ namespace Modelagem
 {
     class PedidoLoja
     {
-        int data;
+        private List<ItemPedidoLoja> itemsPedidosDiarios;
+        DateTime data;
 
-        void criarPedido()
-        {
+        public void criarPedido() {
+
+            itemsPedidosDiarios = new List<ItemPedidoLoja>();
+            data = DateTime.Now;
+        }
+
+        public void incluirItemEmPedido(int cod, int quantidade) {
+
+            ItemPedidoLoja pedido = new ItemPedidoLoja();
+            pedido = pedido.criaNovoItem(cod, quantidade);
+            if(pedido != null) {
+                itemsPedidosDiarios.Add(pedido);
+            } 
 
         }
 
-        void incluirItemEmPedido(int cod)
-        {
-
+        public List<ItemPedidoLoja> retornaListaPedidosDiarios() {
+            return itemsPedidosDiarios;
         }
 
     }
