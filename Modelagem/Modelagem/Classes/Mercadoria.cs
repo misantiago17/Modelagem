@@ -8,7 +8,7 @@ namespace Modelagem
 {
     class Mercadoria // -------------------- TO DO
     {
-        int codigoVenda;
+        public int codigoVenda;
 
         // Código onde armazenamento é apenas para a matriz
         int codigoArmazenamento;

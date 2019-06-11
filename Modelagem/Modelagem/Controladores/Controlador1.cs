@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 
@@ -13,8 +10,16 @@ namespace Modelagem.Controladores
 {
     class Controlador1
     {
+        private static readonly Controlador1 instance = new Controlador1();
+
         //JSON listaPedidoLoja;
         Loja loja = new Loja();
+
+        private Controlador1() { }
+
+        public static Controlador1 Instance {
+            get { return instance; }
+        }
 
         // Menu 1
         public void mostraMenuUC1() {
@@ -26,6 +31,7 @@ namespace Modelagem.Controladores
             Console.WriteLine("2 - Criar lista de pedido diário para a matriz.");
             Console.WriteLine("3 - Ver lista de pedido diário.");
             Console.WriteLine("4 - Enviar lista de pedido diário para a matriz.");
+            Console.WriteLine("5 - Voltar ao Menu Principal.");
 
             Console.Write("\nDigite o comando: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -37,7 +43,11 @@ namespace Modelagem.Controladores
             } else if (input == 3) {
                 loja.displayPedidosDiarios();
             } else if (input == 4) {
+                // Toda vez que enviar a lista para a matriz, ele cria uma nova lista limpa por cima da antiga para ser enviada para matriz caso entre nesse menu novamente
+                // Se ele sair do menu sem enviar a lista ele perde a lista
                 Console.WriteLine("A ser implementado");
+            } else if (input == 5) {
+                ControladorGeral.Instance.MenuPrincipal();
             } else {
                 Console.WriteLine("Comando inválido.\n");
                 mostraMenuUC1();
@@ -52,7 +62,7 @@ namespace Modelagem.Controladores
             if (input == 1) {
                 mostraMenuUC1();
             } else {
-                Console.WriteLine("\n Não entendi o comando. \n");
+                Console.WriteLine("Comando inválido. \n");
                 voltarAoMenuUC1();
             }
         }
@@ -71,13 +81,25 @@ namespace Modelagem.Controladores
 
         public void SalvaListaPedidoDiario(List<ItemPedidoLoja> pedidoDiario)
         {
-            // Salva itens no Json de pedidos diários - ideal é verificar se já existe pedido com o mesmo codigo e somar a ele a quantidade desejada - perguntar se é necessario
+            // Verifica se tem itens repetidos e junta eles em um único item
+            for(int i=0; i < pedidoDiario.Count; i++) {
+                ItemPedidoLoja itemVerifica = pedidoDiario[i];
+
+                for(int j=i+1; j < pedidoDiario.Count; j++) {
+                    if (pedidoDiario[j].mercadoria.codigoVenda == pedidoDiario[i].mercadoria.codigoVenda) {
+                        pedidoDiario[i].quantidade += pedidoDiario[j].quantidade;
+                        pedidoDiario.RemoveAt(j);
+                        j -= 1;
+                    }
+                }
+            }
+
+            // Salva itens no Json de pedidos diários
             using (StreamWriter file = File.CreateText(@"..\..\PedidoDiarioLoja1.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, pedidoDiario);
             }
-
 
         }
 

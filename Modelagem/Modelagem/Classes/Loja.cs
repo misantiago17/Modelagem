@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace Modelagem
 {
     // Loja le o arquivo json com o estoque dela e avalia o que precisa ser criado
     class Loja
     {
-        public List<ItemEstoque> itemsEstoque = new List<ItemEstoque>();
+        private List<ItemEstoque> itemsEstoque;
 
-        Controladores.Controlador1 Control = new Controladores.Controlador1();
         PedidoLoja PedidoDiario = new PedidoLoja();
+
 
         // 1 - Ver estoque loja
 
@@ -34,7 +30,7 @@ namespace Modelagem
                 Console.WriteLine("-------------------------");
             }
 
-            Control.voltarAoMenuUC1();
+            Controladores.Controlador1.Instance.voltarAoMenuUC1();
         }
 
         // 2 - Criar lista de pedido diário para a matriz.
@@ -58,23 +54,22 @@ namespace Modelagem
                 int quantidade = Convert.ToInt32(Console.ReadLine());
 
                 // adiciona item a um json de pedidos diários
-                PedidoDiario.incluirItemEmPedido(cod, quantidade);
+                incluirItemEmPedido(cod, quantidade);
 
                 Console.WriteLine("\nDigite -1 caso queira voltar ao menu, digite outro número caso queira adicionar um novo item");
                 Console.Write("Digite o comando: ");
                 input = Convert.ToInt32(Console.ReadLine());
             }
 
-            Control.SalvaListaPedidoDiario(PedidoDiario.retornaListaPedidosDiarios());
-            Control.mostraMenuUC1();
+            Controladores.Controlador1.Instance.SalvaListaPedidoDiario(PedidoDiario.retornaListaPedidosDiarios());
+            Controladores.Controlador1.Instance.mostraMenuUC1();
         }
 
-        private void incluirItemEmPedido(int cod)
-        {
-
+        private void incluirItemEmPedido(int cod,int  quantidade) {
+            PedidoDiario.incluirItemEmPedido(cod, quantidade);
         }
 
-        // Fora da arquitetura prevista
+        // 3 - Ver lista de pedido diário.
 
         public void displayPedidosDiarios()
         {
@@ -82,14 +77,14 @@ namespace Modelagem
 
             Console.WriteLine("Pedidos diários da loja: \n");
 
-            foreach (Item item in itemsPedidosDiarios)
+            foreach (ItemPedidoLoja item in PedidoDiario.retornaListaPedidosDiarios())
             {
-                Console.WriteLine("Código do item: " + item.cod);
+                Console.WriteLine("Código do item: " + item.mercadoria.codigoVenda);
                 Console.WriteLine("Quantidade do item: " + item.quantidade);
                 Console.WriteLine("-------------------------");
             }
 
-            voltarAoMenuUC1();
+            Controladores.Controlador1.Instance.voltarAoMenuUC1();
         }
 
 
