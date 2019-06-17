@@ -13,7 +13,10 @@ namespace Modelagem.Controladores
         private static readonly Controlador1 instance = new Controlador1();
 
         //JSON listaPedidoLoja;
-        Loja loja = new Loja();
+        List<Loja> lojas;
+        Loja lojaAtual;
+
+        private int numLoja = 0;
 
         private Controlador1() { }
 
@@ -21,32 +24,73 @@ namespace Modelagem.Controladores
             get { return instance; }
         }
 
-        // Menu 1
-        public void mostraMenuUC1() {
+        public void escolheLoja()
+        {
+            if (lojas == null) {
+                lojas = new List<Loja>();
+
+                Loja loja1 = new Loja();
+                Loja loja2 = new Loja();
+                Loja loja3 = new Loja();
+
+                lojas.Add(loja1);
+                lojas.Add(loja2);
+                lojas.Add(loja3);
+            }
+
             Console.Clear();
 
-            Console.WriteLine("Bem-vindo ao sistema de estocagem da loja, o que deseja fazer hoje? \n");
+            Console.WriteLine("Escolha a Loja que deseja acessar: \n");
 
-            Console.WriteLine("1 - Ver o estoque da loja.");
-            Console.WriteLine("2 - Criar lista de pedido diário para a matriz.");
-            Console.WriteLine("3 - Ver lista de pedido diário.");
-            Console.WriteLine("4 - Enviar lista de pedido diário para a matriz.");
-            Console.WriteLine("5 - Voltar ao Menu Principal.");
+            Console.WriteLine("1 - Loja 1.");
+            Console.WriteLine("2 - Loja 2.");
+            Console.WriteLine("3 - Loja 3.");
+            Console.WriteLine("4 - Voltar ao Menu Principal.");
 
             Console.Write("\nDigite o comando: ");
             int input = Convert.ToInt32(Console.ReadLine());
 
             if (input == 1) {
-                loja.displayEstoqueAtual();
+                numLoja = 1;
+                LerEstoqueLoja();
+                mostraMenuUC1();
             } else if (input == 2) {
-                loja.criarPedido();
+                numLoja = 2;
+                LerEstoqueLoja();
+                mostraMenuUC1();
             } else if (input == 3) {
-                loja.displayPedidosDiarios();
+                numLoja = 3;
+                LerEstoqueLoja();
+                mostraMenuUC1();
             } else if (input == 4) {
-                // Toda vez que enviar a lista para a matriz, ele cria uma nova lista limpa por cima da antiga para ser enviada para matriz caso entre nesse menu novamente
-                // Se ele sair do menu sem enviar a lista ele perde a lista
-                Console.WriteLine("A ser implementado");
-            } else if (input == 5) {
+                ControladorGeral.Instance.MenuPrincipal();
+            } else {
+                Console.WriteLine("Comando inválido.\n");
+                escolheLoja();
+            }
+        }
+
+        // Menu 1
+        public void mostraMenuUC1() {
+            Console.Clear();
+
+            Console.WriteLine("Bem-vindo ao sistema de estocagem da loja " + numLoja + ", o que deseja fazer hoje? \n");
+
+            Console.WriteLine("1 - Ver o estoque da loja.");
+            Console.WriteLine("2 - Criar lista de pedido diário para a matriz.");
+            Console.WriteLine("3 - Ver lista de pedido diário.");
+            Console.WriteLine("4 - Voltar ao Menu Principal.");
+
+            Console.Write("\nDigite o comando: ");
+            int input = Convert.ToInt32(Console.ReadLine());
+
+            if (input == 1) {
+                lojaAtual.displayEstoqueAtual();
+            } else if (input == 2) {
+                lojaAtual.criarPedido();
+            } else if (input == 3) {
+                lojaAtual.displayPedidosDiarios();
+            } else if (input == 4) {   
                 ControladorGeral.Instance.MenuPrincipal();
             } else {
                 Console.WriteLine("Comando inválido.\n");
@@ -70,11 +114,13 @@ namespace Modelagem.Controladores
         // ------- JSON -------
         public void LerEstoqueLoja()
         {
+            lojaAtual = lojas[numLoja - 1];
+
             JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-            using (StreamReader r = new StreamReader(@"..\..\CU1_EstoqueLoja1.json")) {
+            using (StreamReader r = new StreamReader(@"..\..\CU1_EstoqueLoja" + numLoja + ".json")) {
                 string json = r.ReadToEnd();
-                loja.recebeListaEstoque(JsonConvert.DeserializeObject<List<ItemEstoque>>(json));
+                lojaAtual.recebeListaEstoque(JsonConvert.DeserializeObject<List<ItemEstoque>>(json));
             }
         }
 
@@ -95,17 +141,28 @@ namespace Modelagem.Controladores
             }
 
             // Salva itens no Json de pedidos diários
-            using (StreamWriter file = File.CreateText(@"..\..\PedidoDiarioLoja1.json"))
+            using (StreamWriter file = File.CreateText(@"..\..\PedidoDiarioLoja" + numLoja + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, pedidoDiario);
             }
 
+            SalvaRegistroLoja();
         }
 
-        void SalvaRegistroLoja()    // O que era pra ser isso??
-        {
+        // ----------------
 
+        // Salva o numero da loja que registrou um pedido
+        private void SalvaRegistroLoja()    
+        {
+            for (int i = 0; i < Controlador2.Instance.lojasComPedido.Count; i++) {
+                if (Controlador2.Instance.lojasComPedido[i] == lojaAtual) {
+                    Controlador2.Instance.lojasComPedido[i] = lojaAtual;
+                    return;
+                }
+            }
+            
+            Controlador2.Instance.lojasComPedido.Add(lojaAtual);
         }
     }
 }

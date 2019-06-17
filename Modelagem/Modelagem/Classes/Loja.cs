@@ -8,7 +8,7 @@ namespace Modelagem
     {
         private List<ItemEstoque> itemsEstoque;
 
-        PedidoLoja PedidoDiario = new PedidoLoja();
+        public PedidoLoja PedidoDiario = new PedidoLoja();
 
 
         // 1 - Ver estoque loja

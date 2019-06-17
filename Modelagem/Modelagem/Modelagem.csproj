@@ -66,6 +66,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="CU1_EstoqueLoja1.json" />
+    <None Include="CU1_EstoqueLoja2.json" />
+    <None Include="CU1_EstoqueLoja3.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

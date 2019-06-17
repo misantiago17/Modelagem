@@ -23,7 +23,7 @@ namespace Modelagem
                 Console.Clear();
                 Console.WriteLine("Qual sistema deseja acessar? \n");
 
-                Console.WriteLine("1 - Sistema de estocagem da loja.");
+                Console.WriteLine("1 - Sistema de estocagem das lojas.");
                 Console.WriteLine("2 - Sistema de separação da matriz.");
                 Console.WriteLine("3 - ");
                 Console.WriteLine("4 - ");
@@ -34,10 +34,10 @@ namespace Modelagem
 
                 if (input == 1) {
                     Controladores.Controlador1 UC1 = Controladores.Controlador1.Instance;
-                    UC1.LerEstoqueLoja();
-                    UC1.mostraMenuUC1();
+                    UC1.escolheLoja();
                 } else if (input == 2) {
-                    Console.WriteLine("A ser implementado");
+                    Controladores.Controlador2 UC2 = Controladores.Controlador2.Instance;
+                    UC2.mostraMenuUC2();
                 } else if (input == 3) {
                     Console.WriteLine("A ser implementado");
                 } else if (input == 4) {
