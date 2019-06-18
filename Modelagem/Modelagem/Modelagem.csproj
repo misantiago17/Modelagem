@@ -65,10 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CU1_EstoqueLoja1.json" />
-    <None Include="CU1_EstoqueLoja2.json" />
-    <None Include="CU1_EstoqueLoja3.json" />
+    <None Include="JSON\MercadoriaRegistro.json" />
+    <None Include="JSON\CU1_EstoqueLoja1.json" />
+    <None Include="JSON\CU1_EstoqueLoja2.json" />
+    <None Include="JSON\CU1_EstoqueLoja3.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,11 +9,16 @@ namespace Modelagem
         private List<ItemEstoque> itemsEstoque;
 
         public PedidoLoja PedidoDiario = new PedidoLoja();
+        public int IDLoja = 0;
 
+        public Loja(int numId)
+        {
+            IDLoja = numId;
+        }
 
         // 1 - Ver estoque loja
 
-        // Armazena a lista de itensvinda do controlador
+        // Armazena a lista de itens vinda do controlador
         public void recebeListaEstoque(List<ItemEstoque> estoque) {
             itemsEstoque = estoque;
         }

@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+
 
 namespace Modelagem
 {
-    class Mercadoria // -------------------- TO DO
+    class Mercadoria 
     {
         public int codigoVenda;
 
         // Código onde armazenamento é apenas para a matriz
-        int codigoArmazenamento;
+        public int[] codigoArmazenamento;
 
         public Mercadoria retornaMercadoria(int cod)
         {
             // Verificar em mercadoria se o código de venda do item existe mesmo
-            avaliaCodigoMercValida(cod);
             if (avaliaCodigoMercValida(cod)) {
-                codigoVenda = cod;
-                codigoArmazenamento = 0; // TO DO
+
+                foreach (Mercadoria mercadoria in EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes) {
+                    if (mercadoria.codigoVenda == cod) {
+                        codigoVenda = mercadoria.codigoVenda;
+                        codigoArmazenamento = mercadoria.codigoArmazenamento;
+                    }
+                }
 
                 return this;
             } else {
@@ -27,9 +32,19 @@ namespace Modelagem
             }
             return null;
         }
-        private bool avaliaCodigoMercValida(int cod)    // ------------ TO DO - perguntar para ele
+        private bool avaliaCodigoMercValida(int cod) 
         {
-            return true;
+            if (EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes == null) {
+                EstoqueMercadoriaMatriz.Instance.carregaMercadorias();
+            }
+
+            foreach (Mercadoria mercadoria in EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes) {
+
+                if (mercadoria.codigoVenda == cod) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private int retornaPosicao(int cod)
@@ -43,4 +58,35 @@ namespace Modelagem
         }
 
     }
+
+    class EstoqueMercadoriaMatriz
+    {
+        private static readonly EstoqueMercadoriaMatriz instance = new EstoqueMercadoriaMatriz();
+
+        private EstoqueMercadoriaMatriz() { }
+
+        public static EstoqueMercadoriaMatriz Instance {
+            get { return instance; }
+        }
+
+        public List<Mercadoria> mercadoriasExistentes;
+
+        public void carregaMercadorias() {
+
+            JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            using (StreamReader r = new StreamReader(@"..\..\JSON\MercadoriaRegistro.json"))
+            {
+                string json = r.ReadToEnd();
+                mercadoriasExistentes = JsonConvert.DeserializeObject<List<Mercadoria>>(json);
+            }
+
+            foreach (Mercadoria mercadoria in EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes) {
+
+                Console.WriteLine(mercadoria.codigoVenda + " Venda");
+                Console.WriteLine(mercadoria.codigoArmazenamento + " Armazenamento");
+            }
+        }
+    }
+
 }

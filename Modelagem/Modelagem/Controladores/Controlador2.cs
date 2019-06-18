@@ -14,11 +14,6 @@ namespace Modelagem.Controladores
         // Lista com as lojas que possuem pedidos para a matriz
         public List<Loja> lojasComPedido = new List<Loja>();
 
-        // Lista com as listas de cada Json de pedido diario da loja
-
-        List<List<ItemPedidoLoja>> PedidoDiario;
-        //JSON listaPedidoLojas[];
-
         private Controlador2() { }
 
         public static Controlador2 Instance {
@@ -74,6 +69,9 @@ namespace Modelagem.Controladores
             Sistema solicita a retirada dos itens nas posiçoes relacionadas das mercadorias nas quantidades desejadas
          */
 
+        // o item pedido passa a ser um item separacao
+        // realiza toda a retirada do item na mercadoria
+
         private void displayPedidosLojas()
         {
             Console.Clear(); 
@@ -86,7 +84,7 @@ namespace Modelagem.Controladores
 
                 foreach (Loja loja in lojasComPedido) {
 
-                    Console.WriteLine("\nEstoque da Loja: \n");
+                    Console.WriteLine("\nEstoque da Loja " + loja.IDLoja + ": \n");
 
                     foreach (ItemPedidoLoja item in loja.PedidoDiario.retornaListaPedidosDiarios()) {
 
@@ -100,14 +98,13 @@ namespace Modelagem.Controladores
             voltarAoMenuUC2();
         }
 
-        // ------- JSON -------
-
-        private void lePedidosDiarios()
+        void adicionaListaPedidos(List<ItemPedidoLoja> listaPedidoLoja)
         {
-            foreach (Loja loja in lojasComPedido) {
 
-            }
         }
+
+
+        // ------- JSON -------
 
         void salvaListaJson()
         {
@@ -115,11 +112,5 @@ namespace Modelagem.Controladores
         }
 
         // ----------------
-
-        void adicionaListaPedidos(List<ItemPedidoLoja> listaPedidoLoja)
-        {
-
-        }
-
     }
 }

@@ -1,0 +1,10 @@
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\bin\Debug\Modelagem.exe.config
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\bin\Debug\Modelagem.exe
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\bin\Debug\Modelagem.pdb
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.dll
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.xml
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.csprojAssemblyReference.cache
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CoreCompileInputs.cache
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CopyComplete
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.exe
+G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.pdb

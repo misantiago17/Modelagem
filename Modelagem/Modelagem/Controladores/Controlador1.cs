@@ -12,7 +12,6 @@ namespace Modelagem.Controladores
     {
         private static readonly Controlador1 instance = new Controlador1();
 
-        //JSON listaPedidoLoja;
         List<Loja> lojas;
         Loja lojaAtual;
 
@@ -29,9 +28,9 @@ namespace Modelagem.Controladores
             if (lojas == null) {
                 lojas = new List<Loja>();
 
-                Loja loja1 = new Loja();
-                Loja loja2 = new Loja();
-                Loja loja3 = new Loja();
+                Loja loja1 = new Loja(1);
+                Loja loja2 = new Loja(2);
+                Loja loja3 = new Loja(3);
 
                 lojas.Add(loja1);
                 lojas.Add(loja2);
@@ -118,7 +117,7 @@ namespace Modelagem.Controladores
 
             JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-            using (StreamReader r = new StreamReader(@"..\..\CU1_EstoqueLoja" + numLoja + ".json")) {
+            using (StreamReader r = new StreamReader(@"..\..\JSON\CU1_EstoqueLoja" + numLoja + ".json")) {
                 string json = r.ReadToEnd();
                 lojaAtual.recebeListaEstoque(JsonConvert.DeserializeObject<List<ItemEstoque>>(json));
             }
@@ -141,7 +140,7 @@ namespace Modelagem.Controladores
             }
 
             // Salva itens no Json de pedidos diários
-            using (StreamWriter file = File.CreateText(@"..\..\PedidoDiarioLoja" + numLoja + ".json"))
+            using (StreamWriter file = File.CreateText(@"..\..\JSON\PedidoDiarioLoja" + numLoja + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, pedidoDiario);
