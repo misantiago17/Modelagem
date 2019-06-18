@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+
 
 namespace Modelagem.Controladores
 {
@@ -10,6 +11,12 @@ namespace Modelagem.Controladores
     {
         private static readonly Controlador2 instance = new Controlador2();
 
+        // Lista com as lojas que possuem pedidos para a matriz
+        public List<Loja> lojasComPedido = new List<Loja>();
+
+        // Lista com as listas de cada Json de pedido diario da loja
+
+        List<List<ItemPedidoLoja>> PedidoDiario;
         //JSON listaPedidoLojas[];
 
         private Controlador2() { }
@@ -34,7 +41,7 @@ namespace Modelagem.Controladores
             int input = Convert.ToInt32(Console.ReadLine());
 
             if (input == 1) {
-                Console.WriteLine("A ser implementado");
+                displayPedidosLojas();
             } else if (input == 2) {
                 Console.WriteLine("A ser implementado");
             } else if (input == 3) {
@@ -53,12 +60,9 @@ namespace Modelagem.Controladores
             Console.WriteLine("\nDeseja voltar ao menu? (Digite 1 caso sim)");
             Console.Write("Digite o comando: ");
             int input = Convert.ToInt32(Console.ReadLine());
-            if (input == 1)
-            {
+            if (input == 1) {
                 mostraMenuUC2();
-            }
-            else
-            {
+            } else {
                 Console.WriteLine("Comando inválido. \n");
                 voltarAoMenuUC2();
             }
@@ -70,10 +74,47 @@ namespace Modelagem.Controladores
             Sistema solicita a retirada dos itens nas posiçoes relacionadas das mercadorias nas quantidades desejadas
          */
 
+        private void displayPedidosLojas()
+        {
+            Console.Clear(); 
+
+            if (lojasComPedido.Count == 0) {
+
+                Console.WriteLine("Não há lista de pedidos registrada. \n");
+
+            } else {
+
+                foreach (Loja loja in lojasComPedido) {
+
+                    Console.WriteLine("\nEstoque da Loja: \n");
+
+                    foreach (ItemPedidoLoja item in loja.PedidoDiario.retornaListaPedidosDiarios()) {
+
+                        Console.WriteLine("Código do item: " + item.mercadoria.codigoVenda);
+                        Console.WriteLine("Quantidade do item: " + item.quantidade);
+                        Console.WriteLine("-------------------------");
+                    }
+                }
+            }
+
+            voltarAoMenuUC2();
+        }
+
+        // ------- JSON -------
+
+        private void lePedidosDiarios()
+        {
+            foreach (Loja loja in lojasComPedido) {
+
+            }
+        }
+
         void salvaListaJson()
         {
 
         }
+
+        // ----------------
 
         void adicionaListaPedidos(List<ItemPedidoLoja> listaPedidoLoja)
         {
