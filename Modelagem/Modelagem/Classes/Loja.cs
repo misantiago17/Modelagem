@@ -8,12 +8,14 @@ namespace Modelagem
     {
         private List<ItemEstoque> itemsEstoque;
 
-        public PedidoLoja PedidoDiario = new PedidoLoja();
+        public PedidoLoja PedidoDiario;
         public int IDLoja = 0;
 
-        public Loja(int numId)
-        {
+        public Loja(int numId) {
             IDLoja = numId;
+
+            PedidoDiario = new PedidoLoja();
+            PedidoDiario.criarPedido(numId);            
         }
 
         // 1 - Ver estoque loja
@@ -42,8 +44,6 @@ namespace Modelagem
 
         // era static esse método - 2º chamada
         public void criarPedido() {
-
-            PedidoDiario.criarPedido();
 
             Console.Clear();
             int input = 0;
@@ -80,13 +80,18 @@ namespace Modelagem
         {
             Console.Clear();
 
-            Console.WriteLine("Pedidos diários da loja: \n");
+            if(PedidoDiario.retornaListaPedidosDiarios().Count > 0) {
 
-            foreach (ItemPedidoLoja item in PedidoDiario.retornaListaPedidosDiarios())
-            {
-                Console.WriteLine("Código do item: " + item.mercadoria.codigoVenda);
-                Console.WriteLine("Quantidade do item: " + item.quantidade);
-                Console.WriteLine("-------------------------");
+                Console.WriteLine("Pedidos diários da loja: \n");
+
+                foreach (ItemPedidoLoja item in PedidoDiario.retornaListaPedidosDiarios())
+                {
+                    Console.WriteLine("Código do item: " + item.mercadoria.codigoVenda);
+                    Console.WriteLine("Quantidade do item: " + item.quantidade);
+                    Console.WriteLine("-------------------------");
+                }
+            } else {
+                Console.WriteLine("Não há lista de Pedidos diários criada. \n");
             }
 
             Controladores.Controlador1.Instance.voltarAoMenuUC1();

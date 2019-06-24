@@ -51,7 +51,7 @@
     <Compile Include="Controladores\Controlador1.cs" />
     <Compile Include="Controladores\Controlador2.cs" />
     <Compile Include="Classes\Estante.cs" />
-    <Compile Include="Classes\ItemMercadoriaSeparacao.cs" />
+    <Compile Include="Classes\ListaSeparacao.cs" />
     <Compile Include="Classes\ItemPedidoLoja.cs" />
     <Compile Include="Classes\ItemTransferidoLoja.cs" />
     <Compile Include="Classes\Loja.cs" />
@@ -59,7 +59,10 @@
     <Compile Include="Classes\PedidoLoja.cs" />
     <Compile Include="Classes\Posicao.cs" />
     <Compile Include="Classes\Program.cs" />
-    <Compile Include="ControladorGeral.cs" />
+    <Compile Include="Controladores\Controlador3.cs" />
+    <Compile Include="Controladores\Controlador4.cs" />
+    <Compile Include="Controladores\Controlador5.cs" />
+    <Compile Include="Controladores\ControladorGeral.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\RetiradaDiariaPosicao.cs" />
   </ItemGroup>
@@ -69,6 +72,7 @@
     <None Include="JSON\CU1_EstoqueLoja1.json" />
     <None Include="JSON\CU1_EstoqueLoja2.json" />
     <None Include="JSON\CU1_EstoqueLoja3.json" />
+    <None Include="JSON\Posicoes.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

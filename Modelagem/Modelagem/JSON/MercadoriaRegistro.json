@@ -2,62 +2,82 @@
 
   {
     "codVenda": "0001",
-    "codArmazenamento": [ 1, 2 ]
+    "estante":  1,
+    "posicoes": [ 1, 2 ]
   },
   {
     "codVenda": "0002",
-    "codArmazenamento": [ 3, 4 ]
+    "estante": 1,
+    "posicoes": [ 3, 4 ]
   },
   {
     "codVenda": "0003",
-    "codArmazenamento": [ 5, 6 ]
+    "estante": 1,
+    "posicoes": [ 5, 6 ]
   },
   {
     "codVenda": "0004",
-    "codArmazenamento": [ 7, 8 ]
+    "estante": 1,
+    "posicoes": [ 7, 8 ]
   },
   {
     "codVenda": "0005",
-    "codArmazenamento": [ 9, 10 ]
+    "estante": 1,
+    "posicoes": [ 9, 10 ]
   },
   {
     "codVenda": "0006",
-    "codArmazenamento": [ 11, 12 ]
+    "estante": 1,
+    "posicoes": [ 11, 12 ]
   },
   {
     "codVenda": "0007",
-    "codArmazenamento": [ 13, 14 ]
+    "estante": 1,
+    "posicoes": [ 13, 14 ]
   },
   {
     "codVenda": "0008",
-    "codArmazenamento": [ 15, 16 ]
+    "estante": 1,
+    "posicoes": [ 15, 16 ]
   },
   {
     "codVenda": "0009",
-    "codArmazenamento": [ 17, 18 ]
+    "estante": 2,
+    "posicoes": [ 1, 2 ]
   },
   {
     "codVenda": "0010",
-    "codArmazenamento": [ 19, 20 ]
+    "estante": 2,
+    "posicoes": [ 3, 4 ]
   },
   {
     "codVenda": "0011",
-    "codArmazenamento": [ 21, 22 ]
+    "estante": 2,
+    "posicoes": [ 5, 6 ]
   },
   {
     "codVenda": "0012",
-    "codArmazenamento": [ 23, 24 ]
+    "estante": 2,
+    "posicoes": [ 7, 8 ]
   },
   {
     "codVenda": "0013",
-    "codArmazenamento": [ 25, 26 ]
+    "estante": 2,
+    "posicoes": [ 9, 10 ]
   },
   {
     "codVenda": "0014",
-    "codArmazenamento": [ 27, 28 ]
+    "estante": 2,
+    "posicoes": [ 11, 12 ]
   },
   {
     "codVenda": "0015",
-    "codArmazenamento": [ 29, 30 ]
+    "estante": 2,
+    "posicoes": [ 13, 14 ]
+  },
+  {
+    "codVenda": "0016",
+    "estante": 2,
+    "posicoes": [ 15, 16 ]
   }
 ]

@@ -8,23 +8,22 @@ using Newtonsoft.Json;
 
 namespace Modelagem.Controladores
 {
+    // cara eu só não vou fazer isso agora mas eu preciso fazre que quando isso é inicializado, inicialize as lojas
+    // e as lojas inicializem o que ta permanente no json de pedidos automaticamente
+    // separa a arrumação tbm
+
+
     class Controlador1
     {
         private static readonly Controlador1 instance = new Controlador1();
 
-        List<Loja> lojas;
+        public List<Loja> lojas;
         Loja lojaAtual;
 
         private int numLoja = 0;
 
-        private Controlador1() { }
+        private Controlador1() {
 
-        public static Controlador1 Instance {
-            get { return instance; }
-        }
-
-        public void escolheLoja()
-        {
             if (lojas == null) {
                 lojas = new List<Loja>();
 
@@ -36,6 +35,14 @@ namespace Modelagem.Controladores
                 lojas.Add(loja2);
                 lojas.Add(loja3);
             }
+
+        }
+
+        public static Controlador1 Instance {
+            get { return instance; }
+        }
+
+        public void escolheLoja() {
 
             Console.Clear();
 
@@ -125,9 +132,9 @@ namespace Modelagem.Controladores
 
 
         public void SalvaListaPedidoDiario(List<ItemPedidoLoja> pedidoDiario)
-        {
+        {            
             // Verifica se tem itens repetidos e junta eles em um único item
-            for(int i=0; i < pedidoDiario.Count; i++) {
+            for (int i=0; i < pedidoDiario.Count; i++) {
                 ItemPedidoLoja itemVerifica = pedidoDiario[i];
 
                 for(int j=i+1; j < pedidoDiario.Count; j++) {
@@ -140,28 +147,14 @@ namespace Modelagem.Controladores
             }
 
             // Salva itens no Json de pedidos diários
-            using (StreamWriter file = File.CreateText(@"..\..\JSON\PedidoDiarioLoja" + numLoja + ".json"))
+            using (StreamWriter file = File.CreateText(@"..\..\PedidoDiarioLoja" + numLoja + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, pedidoDiario);
             }
 
-            SalvaRegistroLoja();
         }
 
         // ----------------
-
-        // Salva o numero da loja que registrou um pedido
-        private void SalvaRegistroLoja()    
-        {
-            for (int i = 0; i < Controlador2.Instance.lojasComPedido.Count; i++) {
-                if (Controlador2.Instance.lojasComPedido[i] == lojaAtual) {
-                    Controlador2.Instance.lojasComPedido[i] = lojaAtual;
-                    return;
-                }
-            }
-            
-            Controlador2.Instance.lojasComPedido.Add(lojaAtual);
-        }
     }
 }
