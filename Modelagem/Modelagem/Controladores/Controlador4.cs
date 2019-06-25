@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Modelagem.Controladores
 {
@@ -18,8 +18,6 @@ namespace Modelagem.Controladores
         private List<ItemPedidoLoja> listaAcertosTransferencia2 = new List<ItemPedidoLoja>();
         private List<ItemPedidoLoja> listaAcertosTransferencia3 = new List<ItemPedidoLoja>();
         private List<ItemPedidoLoja> listaTransferencia = new List<ItemPedidoLoja>();
-
-
 
         public List<Loja> lojas;
         private Loja lojaAtual;
@@ -87,7 +85,7 @@ namespace Modelagem.Controladores
             } else if (input == 2) {
                 displayListaSeparacaoLoja();
             } else if (input == 3) {
-                //ConfereItensTransporte();
+                ConfereItensTransporte();
             } else if (input == 4) {
                 displayListaTransporte();
             } else if (input == 5) {
@@ -155,13 +153,13 @@ namespace Modelagem.Controladores
 
             if (lista.Count == 0) {
 
-                Console.WriteLine("Não há lista de pedido da loja registrada. \n");
+                Console.WriteLine("Não há lista de separação da loja registrada. \n");
                 voltarAoMenuUC4();
                 return;
 
             } else {
 
-                Console.WriteLine("Itens da lista de pedido da loja: \n");
+                Console.WriteLine("Itens da lista de separação da loja: \n");
 
                 foreach (ItemPedidoLoja item in lista) {
 
@@ -192,13 +190,13 @@ namespace Modelagem.Controladores
 
             if (lista.Count == 0) {
 
-                Console.WriteLine("Não há lista de pedido da loja registrada. \n");
+                Console.WriteLine("Não há itens na lista de acertos registrada. \n");
                 voltarAoMenuUC4();
                 return;
 
             } else {
 
-                Console.WriteLine("Itens da lista de pedido da loja: \n");
+                Console.WriteLine("Itens da lista de acertos da loja: \n");
 
                 foreach (ItemPedidoLoja item in lista) {
 
@@ -216,7 +214,7 @@ namespace Modelagem.Controladores
             Console.Clear();
 
             if (listaTransferencia.Count == 0)
-                carregaListaTransferencia();
+                carregaListaTransferencia(lojaAtual.IDLoja);
 
             if (listaTransferencia.Count == 0) {
 
@@ -239,33 +237,28 @@ namespace Modelagem.Controladores
             voltarAoMenuUC4();
         }
 
-        // entao, cada uma delas tem a sua lista, voce precisa ter uma chence de ver a lista que a loja pediu
-        // tbm como ver a lista que ela recebe do controlador 3
-        // tbm um registro da lista da transferencia que chegou igual ao controlador 3 so que pra outra coisa
-        // e dps como ver a lista que o cara criou
-
-        // Dor de cabeça: ver o json dos acertos que sair daqui, conseguir diferenciar oq não veio dos acertos iniciais para poder reler
-        // se pa logo dps dos acertos iniciais ler o Json e se o Json já existir
-        // Foda-se só salva e esquece que o json existe
-
-        /*private void ConfereItensTransporte() {
+        private void ConfereItensTransporte() {
 
             Console.Clear();
             int input = 0;
 
             List<ItemPedidoLoja> listaSeparacao = new List<ItemPedidoLoja>();
+            List<ItemPedidoLoja> listaAcertos = new List<ItemPedidoLoja>();
 
-            if (lojaAtual.IDLoja == 1)
-                listaSeparacao = listaAcertosTransferencia1;
-            else if (lojaAtual.IDLoja == 2)
-                listaSeparacao = listaAcertosTransferencia2;
-            else if (lojaAtual.IDLoja == 3)
-                listaSeparacao = listaAcertosTransferencia3;
+            if (lojaAtual.IDLoja == 1) {
+                listaSeparacao = listaSeparada1;
+                listaAcertos = listaAcertosTransferencia1;
+            } else if (lojaAtual.IDLoja == 2) {
+                listaSeparacao = listaSeparada2;
+                listaAcertos = listaAcertosTransferencia2;
+            } else if (lojaAtual.IDLoja == 3) {
+                listaSeparacao = listaSeparada3;
+                listaAcertos = listaAcertosTransferencia3;
+            }
 
-            listaTransferencia;
-
+            // pre requisito: lista de pedidos da loja, lista de separação de itens que chegou
             if (listaSeparacao.Count == 0) {
-                Console.WriteLine("matriz não possuí lista de separação das lojas. \n");
+                Console.WriteLine("Matriz não possuí lista de separação das lojas. \n");
                 voltarAoMenuUC4();
                 return;
             }
@@ -280,20 +273,75 @@ namespace Modelagem.Controladores
                 Console.Write("Digite a quantidade: ");
                 int quantidade = Convert.ToInt32(Console.ReadLine());
 
-                // Cria o item e adiciona ele à lista de Pos separacao
-                adicionaListaPosSeparacao(cod, quantidade);
+                bool existe = false;
+
+                // Verifica se existe o código e se a quantidade está correta
+                foreach (ItemPedidoLoja item in listaSeparacao) {
+
+                    if (item.mercadoria.codigoVenda == cod) {
+                        existe = true;
+
+                        if (item.quantidade < quantidade) {
+
+                            ItemPedidoLoja itemTransferencia = new ItemPedidoLoja();
+                            itemTransferencia.mercadoria = item.mercadoria;
+                            itemTransferencia.quantidade = item.quantidade;
+
+                            listaTransferencia.Add(itemTransferencia);
+
+                            ItemPedidoLoja itemAcerto = new ItemPedidoLoja();
+                            itemAcerto.mercadoria = item.mercadoria;
+                            itemAcerto.quantidade = (-1)*quantidade - item.quantidade;
+
+                            listaAcertos.Add(itemAcerto);
+
+                        } else if (item.quantidade > quantidade) {
+
+                            ItemPedidoLoja itemTransferencia = new ItemPedidoLoja();
+                            itemTransferencia.mercadoria = item.mercadoria;
+                            itemTransferencia.quantidade = quantidade;
+
+                            listaTransferencia.Add(itemTransferencia);
+
+                            ItemPedidoLoja itemAcerto = new ItemPedidoLoja();
+                            itemAcerto.mercadoria = item.mercadoria;
+                            itemAcerto.quantidade = item.quantidade - quantidade;
+
+                            listaAcertos.Add(itemAcerto);
+
+                        } else {
+                            ItemPedidoLoja itemTransferencia = new ItemPedidoLoja();
+                            itemTransferencia.mercadoria = item.mercadoria;
+                            itemTransferencia.quantidade = quantidade;
+
+                            listaTransferencia.Add(itemTransferencia);
+                        }
+                    }
+
+                    if (!existe) {
+                        ItemPedidoLoja itemAcerto = new ItemPedidoLoja();
+                        itemAcerto.mercadoria = item.mercadoria;
+                        itemAcerto.quantidade = item.quantidade;
+
+                        listaAcertos.Add(itemAcerto);
+                    }
+
+                }
 
                 Console.WriteLine("\nDigite -1 caso queira voltar ao menu, digite outro número caso queira adicionar um novo item");
                 Console.Write("Digite o comando: ");
                 input = Convert.ToInt32(Console.ReadLine());
             }
 
-            salvaListaAcertosLoja();
-            salvaListatransferencia();
+            arrumaLista(listaAcertos);
+            arrumaLista(listaTransferencia);
 
-            mostraMenuUC3();
+            // Salva JSON acertos e transferencia
+            salvaListaAcertosLoja(lojaAtual.IDLoja);
+            salvaListaTransferencia(lojaAtual.IDLoja);
 
-        }*/
+            mostraMenuUC4();
+        }
 
 
         // Separa o que chegou para cada loja
@@ -439,19 +487,59 @@ namespace Modelagem.Controladores
         }
 
         // ------- JSON -------
-        private void salvaListaAcertosLoja(int num) {
+        public void salvaListaAcertosLoja(int num) {
+
+            using (StreamWriter file = File.CreateText(@"..\..\ListaAcertosLoja" + num + ".json")) {
+                JsonSerializer serializer = new JsonSerializer();
+
+                if (num == 1)
+                    serializer.Serialize(file, listaAcertosTransferencia1);
+                else if (num == 2)
+                    serializer.Serialize(file, listaAcertosTransferencia2);
+                else
+                    serializer.Serialize(file, listaAcertosTransferencia3);
+            }
+        }
+
+        public void salvaListaTransferencia(int num) {
+
+            using (StreamWriter file = File.CreateText(@"..\..\ListaTransferenciaLoja" + num + ".json")) {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, listaTransferencia);
+            }
+        }
+
+        public void carregaListaAcertosLoja(int num) {
+
+            if (File.Exists(@"..\..\ListaAcertosLoja" + num + ".json")) {
+
+                JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+                using (StreamReader r = new StreamReader(@"..\..\ListaAcertosLoja" + num + ".json")) {
+                    string json = r.ReadToEnd();
+
+                    if (num == 1)
+                        listaAcertosTransferencia1 = JsonConvert.DeserializeObject<List<ItemPedidoLoja>>(json);
+                    else if (num == 2)
+                        listaAcertosTransferencia2 = JsonConvert.DeserializeObject<List<ItemPedidoLoja>>(json);
+                    else
+                        listaAcertosTransferencia3 = JsonConvert.DeserializeObject<List<ItemPedidoLoja>>(json);
+                }
+            }
 
         }
 
-        private void salvaListaTransferencia() {
+        public void carregaListaTransferencia(int num) {
 
-        }
+            if (File.Exists(@"..\..\ListaTransferenciaLoja" + num + ".json")) {
 
-        private void carregaListaAcertosLoja(int num) {
+                JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-        }
-
-        private void carregaListaTransferencia() {
+                using (StreamReader r = new StreamReader(@"..\..\ListaTransferenciaLoja" + num + ".json")) {
+                    string json = r.ReadToEnd();
+                    listaTransferencia = JsonConvert.DeserializeObject<List<ItemPedidoLoja>>(json);
+                }
+            }
 
         }
 
