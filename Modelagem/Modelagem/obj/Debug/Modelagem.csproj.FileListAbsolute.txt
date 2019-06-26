@@ -8,3 +8,13 @@ G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelage
 G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CopyComplete
 G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.exe
 G:\Projetos\PUC\Modelagem\Sistema Entrega\Modelagem\Modelagem\obj\Debug\Modelagem.pdb
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.exe.config
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.exe
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\bin\Debug\Modelagem.pdb
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.dll
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\bin\Debug\Newtonsoft.Json.xml
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csprojAssemblyReference.cache
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CoreCompileInputs.cache
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.csproj.CopyComplete
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.exe
+U:\Modelagem\TrabModelagem\Modelagem\Modelagem\Modelagem\obj\Debug\Modelagem.pdb

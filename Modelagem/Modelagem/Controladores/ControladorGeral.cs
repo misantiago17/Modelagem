@@ -28,7 +28,7 @@ namespace Modelagem
                 Console.WriteLine("1 - Sistema de estocagem das lojas.");
                 Console.WriteLine("2 - Sistema de separação da matriz.");
                 Console.WriteLine("3 - Sistema de conferencia de separação da matriz.");
-                Console.WriteLine("4 - Sistema de conferencia de transporte de mercadorias.");
+                //Console.WriteLine("4 - Sistema de conferencia de transporte de mercadorias.");
 
                 Console.Write("\nDigite o comando: ");
                 int input = Convert.ToInt32(Console.ReadLine());
@@ -44,10 +44,6 @@ namespace Modelagem
                     Controladores.Controlador3 UC3 = Controladores.Controlador3.Instance;
                     UC3.carregaListas();
                     UC3.mostraMenuUC3();
-                } else if (input == 4) {
-                    Controladores.Controlador4 UC4 = Controladores.Controlador4.Instance;
-                    UC4.separaListaSeparacao();
-                    UC4.escolheLoja();
                 } else {
                     Console.WriteLine("Comando inválido.\n");
                     valid = false;

@@ -79,7 +79,6 @@ namespace Modelagem
             }
         }
 
-
     }
 
     class EstoqueMercadoriaMatriz
@@ -94,6 +93,19 @@ namespace Modelagem
 
         public List<Mercadoria> mercadoriasExistentes;
         public List<AuxPosicao> posAux = new List<AuxPosicao>();
+
+        public List<Mercadoria> RetornaListaPosicoes()
+        {
+
+            List<Mercadoria> listaMercadorias = new List<Mercadoria>();
+
+            foreach (Mercadoria merc in EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes)
+            {
+                listaMercadorias.Add(merc.retornaMercadoria(merc.codigoVenda));
+            }
+
+            return listaMercadorias;
+        }
 
         // ------- JSON -------
 

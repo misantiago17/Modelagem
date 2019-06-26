@@ -25,9 +25,10 @@ namespace Modelagem.Controladores
 
             Console.WriteLine("1 - Ver lista de separação.");
             Console.WriteLine("2 - Conferir itens para separação.");
-            Console.WriteLine("3 - Ver lista de acertos.");
-            Console.WriteLine("4 - Ver confirmacao da lista de separação.");
-            Console.WriteLine("5 - Voltar ao Menu Principal.");
+            Console.WriteLine("3 - Ver estoque matriz.");
+            Console.WriteLine("4 - Ver lista de acertos.");
+            Console.WriteLine("5 - Ver confirmacao da lista de separação.");
+            Console.WriteLine("6 - Voltar ao Menu Principal.");
 
             Console.Write("\nDigite o comando: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -37,10 +38,12 @@ namespace Modelagem.Controladores
             } else if (input == 2) {
                 ConfereItensSeparacao();
             } else if (input == 3) {
+                displayEstoqueMatriz();
+            } else if (input == 4) { 
                 displayListaAcertos();
-            } else if (input == 4) {
-                displayListaPosSeparacao();
             } else if (input == 5) {
+                displayListaPosSeparacao();
+            } else if (input == 6) {
                 ControladorGeral.Instance.MenuPrincipal();
             } else {
                 Console.WriteLine("Comando inválido.\n");
@@ -64,6 +67,10 @@ namespace Modelagem.Controladores
         }
 
         public void carregaListas() {
+
+            if (EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes == null) {
+                EstoqueMercadoriaMatriz.Instance.carregaMercadorias();
+            }
 
             listaSeparacao = new List<ItemPedidoLoja>();
             listaSeparacao = Controlador2.Instance.separacao.retornaListaItens();
@@ -98,6 +105,77 @@ namespace Modelagem.Controladores
 
             //verificaCondicaoListaSeparacao();
             voltarAoMenuUC3();
+        }
+
+        // carrega a lista de posicao da matriz com a quantidade presente nele
+        private void displayEstoqueMatriz()
+        {
+            Console.Clear();
+
+            List<Mercadoria> mercadorias = EstoqueMercadoriaMatriz.Instance.RetornaListaPosicoes();
+
+            // mostrar a estante primeiro, depois cada posicao com o nome da mercadoria nela e a quantidade dela
+
+            Console.WriteLine("Itens na estante 1: \n");
+
+            foreach(Mercadoria merc in mercadorias) {
+
+                if (merc.CodEstante.identificacao == 1) {
+
+                    foreach(int pos in merc.CodPosicoes.identificacao) {
+
+                        Console.WriteLine("Posição na estante: " + pos);
+                        Console.WriteLine("Mercadoria presente na posição: " + merc.codigoVenda);
+                        if (merc.CodPosicoes.quantidade > 50) {
+                            if (pos == merc.CodPosicoes.identificacao[0])
+                                Console.WriteLine("Quantidade Total do item: " + 50);
+                            else
+                                Console.WriteLine("Quantidade Total do item: " + (merc.CodPosicoes.quantidade - 50));
+                        } else {
+                            if (pos == merc.CodPosicoes.identificacao[0])
+                                Console.WriteLine("Quantidade Total do item: " + merc.CodPosicoes.quantidade);
+                            else
+                                Console.WriteLine("Quantidade Total do item: " + 0);
+                        }
+
+                        Console.WriteLine("-------------------------");
+
+                    }
+
+                }
+            }
+
+            Console.WriteLine("\nItens na estante 2: \n");
+
+            foreach (Mercadoria merc in mercadorias) {
+
+                if (merc.CodEstante.identificacao == 2) {
+
+                    foreach (int pos in merc.CodPosicoes.identificacao) {
+
+                        Console.WriteLine("Posição na estante: " + pos);
+                        Console.WriteLine("Mercadoria presente na posição: " + merc.codigoVenda);
+                        if (merc.CodPosicoes.quantidade > 50) {
+                            if (pos == merc.CodPosicoes.identificacao[0])
+                                Console.WriteLine("Quantidade Total do item: " + 50);
+                            else
+                                Console.WriteLine("Quantidade Total do item: " + (merc.CodPosicoes.quantidade - 50));
+                        } else {
+                            if (pos == merc.CodPosicoes.identificacao[0])
+                                Console.WriteLine("Quantidade Total do item: " + merc.CodPosicoes.quantidade);
+                            else
+                                Console.WriteLine("Quantidade Total do item: " + 0);
+                        }
+
+                        Console.WriteLine("-------------------------");
+
+                    }
+
+                }
+            }
+
+            voltarAoMenuUC3();
+
         }
 
         private void displayListaPosSeparacao() {
