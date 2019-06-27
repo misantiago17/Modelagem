@@ -66,17 +66,35 @@ namespace Modelagem
         public int RemoveDePosicao(ItemPedidoLoja item) {
 
             Mercadoria itemOriginal = item.mercadoria.retornaMercadoria(item.mercadoria.codigoVenda);
+            List<Mercadoria> itemRegistrada = EstoqueMercadoriaMatriz.Instance.mercadoriasExistentes;
 
             // excede a quantidade da matriz
             if (itemOriginal.CodPosicoes.quantidade < item.quantidade) {
                 itemOriginal.CodPosicoes.quantidade = 0;
                 EstoqueMercadoriaMatriz.Instance.salvaJsonPosicoes(itemOriginal);
+
+                foreach(Mercadoria merc in itemRegistrada) {
+                    if(merc.codigoVenda == item.mercadoria.codigoVenda) {
+                        merc.quantidade = 0;
+                    }
+                }
+
                 return item.quantidade - (item.quantidade - 100);
             } else {
                 itemOriginal.CodPosicoes.quantidade -= item.quantidade;
                 EstoqueMercadoriaMatriz.Instance.salvaJsonPosicoes(itemOriginal);
+
+                foreach (Mercadoria merc in itemRegistrada) {
+                    if (merc.codigoVenda == item.mercadoria.codigoVenda) {
+                        merc.quantidade -= item.quantidade;
+                    }
+                }
+
                 return item.quantidade;
             }
+
+
+
         }
 
     }
